@@ -11,8 +11,6 @@ list2 = [item.strip() for item in second_elm_list.split("=") if item.strip()]
 
 combined_list = []
 for columns1, columns2 in itertools.product(list1, list2):
-    text_elm1 = columns1[0].strip()
-    text_elm2 = columns2[0].strip()
     formated_sims = f"{text_elm1} + {text_elm2} ="
     combined_list.append(formated_sims)
 
