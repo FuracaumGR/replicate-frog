@@ -1,1 +1,15 @@
-m
+name: asdf
+on:
+  workflow_dispatch:
+    inputs:
+      text_user:
+        description: a
+        required: true
+        type: string
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: b
+        uses: actions/checkout@v4
+    
