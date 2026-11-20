@@ -6,6 +6,8 @@ from playwright.sync_api import sync_playwright
 
 first_elm_list = os.environ.get("input_elm1", "")
 second_elm_list = os.environ.get("input_elm2", "")
+replace_equals1 = first_elm_list.replace("=", "\n")
+replace_equals2 = second_elm_list.replace("=", "\n")
 list1 = [line for line in csv.reader(io.StringIO(first_elm_list.strip()), delimiter='=') if line]
 list2 = [line for line in csv.reader(io.StringIO(second_elm_list.strip()), delimiter='=') if line]
 
