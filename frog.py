@@ -6,10 +6,8 @@ from playwright.sync_api import sync_playwright
 
 first_elm_list = os.environ.get("input_elm1", "")
 second_elm_list = os.environ.get("input_elm2", "")
-replace_equals1 = first_elm_list.replace("=", "\n")
-replace_equals2 = second_elm_list.replace("=", "\n")
-list1 = [line for line in csv.reader(io.StringIO(first_elm_list.strip()), delimiter='=') if line]
-list2 = [line for line in csv.reader(io.StringIO(second_elm_list.strip()), delimiter='=') if line]
+list1 = [item.strip() for item in first_elm_list.split("=") if item.strip()]
+list2 = [item.strip() for item in second_elm_list.split("=") if item.strip()]
 
 combined_list = []
 for columns1, columns2 in itertools.product(list1, list2):
