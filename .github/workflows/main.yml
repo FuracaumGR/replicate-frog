@@ -2,16 +2,16 @@ name: Execute Frog
 on:
   workflow_dispatch:
     inputs:
-      first-elements:
+      first_elements:
         description: 'Add the First Elements Here, Separated by Newlines'
         required: true
         type: string
-      second-elements:
+      second_elements:
         description: 'Add the Second Elements Here, Separated by Newlines'
         required: true
         type: string
 jobs:
-  run-script:
+  run_script:
     runs-on: ubuntu-latest
     steps:
       - name: Load Code
