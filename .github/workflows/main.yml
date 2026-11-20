@@ -21,18 +21,18 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Add Playwright
-        run: pip install playwright
-      - name: Add Chromium
-        run: playwright install chromium
+      - name: Add Replicate
+        run: pip install replicate
       - name: Run Script
         env:
           input_elm1: ${{ github.event.inputs.first_elements }}
           input_elm2: ${{ github.event.inputs.second_elements }}
+          replicate_api_token: ${{ secrets.REPLICATE_API_TOKEN }}
+          
         run: python frog.py
-      - name: Take Screenshot
+      - name: Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Bots View
-          path: "*.png"
+          name: simulation-results
+          path: simulation-results.csv
