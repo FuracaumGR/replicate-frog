@@ -23,9 +23,16 @@ for final_text in combined_list:
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
-    page.goto("https://replicate.com/meta/llama-2-70b")
-    page.click("prompt")
-    page.keyboard.insert_text(str(final_text))
-    page.keyboard.press("Enter")
-    page.wait_for_timeout(10000)
-browser.close()
+    try:
+        page.goto("https://replicate.com/meta/llama-2-70b")
+        page.wait_for_timeout(3000)
+        page.screenshot(path="1_open_page.png")
+        page.fill("prompt", str(final_text))
+        page.keyboard.press("Enter")
+        page.wait_for_timeout(10000)
+    except Exception as erro:
+        page.screenshot(path="erro_tela.png")
+        print("Erro:", erro)
+        raise erro
+    finally:
+        browser.close()
