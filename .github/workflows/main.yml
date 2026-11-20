@@ -16,16 +16,17 @@ jobs:
     steps:
       - name: Load Code
         uses: actions/checkout@v4
-      - name: Add Python
+      - name: Config. Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
       - name: Add Playwright
         run:
-          pip install playwright
-          playwright install chromium
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install chromium --with-deps
       - name: Secure Info and Run The Script
         env:
           input_elm1: ${{ github.event.inputs.first_elements }}
           input_elm2: ${{ github.event.inputs.second_elements }}
-        run: frog.py
+        run: python frog.py
