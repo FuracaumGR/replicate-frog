@@ -10,7 +10,7 @@ list1 = [item.strip() for item in first_elm_list.split("=") if item.strip()]
 list2 = [item.strip() for item in second_elm_list.split("=") if item.strip()]
 
 combined_list = []
-for text1, text2 in itertools.product(list1, list2):
+for text_elm1, text_elm2 in itertools.product(list1, list2):
     formated_sims = f"{text_elm1} + {text_elm2} ="
     combined_list.append(formated_sims)
 
