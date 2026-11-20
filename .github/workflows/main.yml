@@ -24,3 +24,8 @@ jobs:
         run:
           pip install playwright
           playwright install chromium
+      - name: Secure Info and Run The Script
+        env:
+          input_elm1: ${{ github.event.inputs.first_elements }}
+          input_elm2: ${{ github.event.inputs.second_elements }}
+        run: frog.py
