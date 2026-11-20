@@ -23,14 +23,9 @@ for final_text in combined_list:
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
-    try:
-        page.goto("https://replicate.com/meta/llama-2-70b")
-        page.fill("prompt", str(final_text))
-        page.keyboard.press("Enter")
-        page.wait_for_timeout(10000)
-    except Exception as erro:
-        print("Erro:", erro)
-        page.screenshot(path="erro_tela.png")
-        raise erro
-    finally:
-        browser.close()
+    page.goto("https://replicate.com/meta/llama-2-70b")
+    page.click("prompt")
+    page.keyboard.insert_text(str(final_text))
+    page.keyboard.press("Enter")
+    page.wait_for_timeout(10000)
+browser.close()
