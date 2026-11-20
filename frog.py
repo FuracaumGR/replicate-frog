@@ -17,12 +17,14 @@ for text_elm1, text_elm2 in itertools.product(list1, list2):
 print(f"Total of Combinations: {len(combined_list)}")
 for item in combined_list:
     print(" ->", item)
-
+for final_text in combined_list:
+    print(f"Filling the website with: {final_text}")
+    
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
     page.goto("https://replicate.com/meta/llama-2-70b")
-    page.fill("prompt", combined_list)
+    page.fill("prompt", str(final_text))
     page.keyboard.press("Enter")
     page.wait_for_timeout(10000)
 browser.close()
