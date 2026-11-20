@@ -1,15 +1,26 @@
-name: asdf
+name: Execute Frog
 on:
   workflow_dispatch:
     inputs:
-      text_user:
-        description: a
+      first-elements:
+        description: 'Add the First Elements Here, Separated by Newlines'
+        required: true
+        type: string
+      second-elements:
+        description: 'Add the Second Elements Here, Separated by Newlines'
         required: true
         type: string
 jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
-      - name: b
+      - name: Load Code
         uses: actions/checkout@v4
-    
+      - name: Add Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Add Playwright
+        run:
+          pip install playwright
+          playwright install chromium
