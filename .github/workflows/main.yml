@@ -13,12 +13,18 @@ on:
 jobs:
   run_script:
     runs-on: ubuntu-latest
-    container:
-      image: ://microsoft.com
-      
+    
     steps:
       - name: Load Code
         uses: actions/checkout@v4
+      - name: Config. Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Add Playwright
+        run: pip install playwright
+      - name: Add Chromium
+        run: playwright install chromium
       - name: Run Script
         env:
           input_elm1: ${{ github.event.inputs.first_elements }}
