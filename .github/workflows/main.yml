@@ -13,20 +13,14 @@ on:
 jobs:
   run_script:
     runs-on: ubuntu-latest
+    container:
+      image: ://microsoft.com
+      
     steps:
       - name: Load Code
         uses: actions/checkout@v4
-      - name: Config. Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Add Playwright
-        run:
-          python -m pip install --upgrade pip
-          python -m pip install playwright
-          python -m playwright install chromium --with-deps
-      - name: Secure Info and Run The Script
+      - name: Run Script
         env:
           input_elm1: ${{ github.event.inputs.first_elements }}
           input_elm2: ${{ github.event.inputs.second_elements }}
-        run: python frog.py
+        run: python3 frog.py
