@@ -19,7 +19,7 @@ for item in combined_list:
     print(" ->", item)
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=true)
+    browser = p.chromium.launch(headless=True)
     page = browser.new_page()
     page.goto("https://replicate.com/meta/llama-2-70b")
     page.fill("prompt", combined_list)
