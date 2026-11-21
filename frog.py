@@ -40,7 +40,7 @@ with open("simulation-results.csv", mode="w", newline="", encoding="utf-8-sig") 
 
         if index < total_items:
             total_time = time.time() - reqs_start
-            waiting_time = max(0.0, insterval - total_time)
+            waiting_time = max(0.0, interval - total_time)
             time.sleep(waiting_time)
             
 print("Success! Here's the file with the result of the simulations.")
