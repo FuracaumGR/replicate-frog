@@ -3,10 +3,10 @@ Replicate Frog is a Bot that automate Replicate simulations. Allowing for multip
 <br>
 ![Frog](readmefrog.jpg)
 
-# How Does It Work?
+## How Does It Work?
 You write the elements you want to combine, each one in its respective side. Then, we send every possible combination between them to Replicate. and in a few minutes you receive a file with the results of the simulations.
 
-# How Can I Use It?
+## How Can I Use It?
 • First, You go to the Actions tab, on the top of the page.<br>
 • Then, You click "Execute Frog" and "Run Workflow", a pop-up should appear next to the button.<br>
 • Then, you type the elements you want to combined, separating each one of them with equal signs. click "Run".<br>
