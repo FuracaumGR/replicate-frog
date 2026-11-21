@@ -1,5 +1,6 @@
 # Replicate Frog
 Replicate Frog is a Bot that automate Replicate simulations. Allowing for multiple simulations at once with different combinations.<br>
+<br>
 ![Frog](readmefrog.jpg)
 
 # How Does It Work?
