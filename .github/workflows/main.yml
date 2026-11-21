@@ -27,7 +27,7 @@ jobs:
         env:
           input_elm1: ${{ github.event.inputs.first_elements }}
           input_elm2: ${{ github.event.inputs.second_elements }}
-          replicate_api_token: ${{ secrets.REPLICATE_API_TOKEN }}
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
           
         run: python frog.py
       - name: Results
