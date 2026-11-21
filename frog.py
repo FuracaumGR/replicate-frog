@@ -11,7 +11,8 @@ list2 = [item.strip() for item in second_elm_list.split("=") if item.strip()]
 
 combined_list = []
 for text_elm1, text_elm2 in itertools.product(list1, list2):
-    formated_sims_csv = f"{text_elm1} + {text_elm2} ="
+    true_first, true_second = sorted([list1, list2], key=str.lower)
+    formated_sims_csv = f"{true_first} + {true_second} ="
     formated_sims_replicate = f"Water + Fire = Steam\nEarth + Water = Plant\nHuman + Robe = Judge\n Cow + Fire = Steak\nKing + Ocean = Poseidon\n{formated_sims_csv}"
     combined_list.append((formated_sims_replicate, formated_sims_csv))
 
