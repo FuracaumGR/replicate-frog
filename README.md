@@ -1,5 +1,6 @@
 # Replicate Frog
 Replicate Frog is a Bot that automate Replicate simulations. Allowing for multiple simulations at once with different combinations.
+<img src=https://ik.imagekit.io/srg0gu9vt/360_F_455696014_SDUJ4ZF2eizNVN5pnJ3drLNfh1hMSCe0.jpg?updatedAt=1795278136069>
 
 # How Does It Work?
 You write the elements you want to combine, each one in its respective side. Then, we send every possible combination between them to Replicate. and in a few minutes you receive a file with the results of the simulations.
