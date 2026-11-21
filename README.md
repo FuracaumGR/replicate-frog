@@ -4,7 +4,7 @@ Replicate Frog is a Bot that automate Replicate simulations. Allowing for multip
 ![Frog](readmefrog.jpg)
 
 ## How Does It Work?
-You write the elements you want to combine, each one in its respective side. Then, we send every possible combination between them to Replicate. and in a few minutes you receive a file with the results of the simulations.
+You write the elements you want to combine, each one in its respective side. Then, we send every possible combination between them (ignoring elements within the same box) to Replicate. and in a few minutes you receive a file with the results of the simulations.
 
 ## How Can I Use It?
 • First, you need to send me your username, via Discord DMs to @.furac, so you can be added as a Contributor<br>
