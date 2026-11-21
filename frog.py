@@ -1,6 +1,6 @@
 import os
 import csv
-import io
+import time
 import itertools
 import replicate
 
