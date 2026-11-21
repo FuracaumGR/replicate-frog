@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       first_elements:
-        description: 'Add the First Elements Here, Separated by Newlines'
+        description: 'Add the First Elements Here, Separated by Equal Signs'
         required: true
         type: string
       second_elements:
-        description: 'Add the Second Elements Here, Separated by Newlines'
+        description: 'Add the Second Elements Here, Separated by Equal Signs'
         required: true
         type: string
 jobs:
