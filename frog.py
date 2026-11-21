@@ -2,7 +2,7 @@ import os
 import csv
 import io
 import itertools
-from playwright.sync_api import sync_playwright
+import replicate
 
 first_elm_list = os.environ.get("input_elm1", "")
 second_elm_list = os.environ.get("input_elm2", "")
@@ -14,25 +14,21 @@ for text_elm1, text_elm2 in itertools.product(list1, list2):
     formated_sims = f"{text_elm1} + {text_elm2} ="
     combined_list.append(formated_sims)
 
-print(f"Total of Combinations: {len(combined_list)}")
-for item in combined_list:
-    print(" ->", item)
-for final_text in combined_list:
-    print(f"Filling the website with: {final_text}")
-    
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
-    page = browser.new_page()
-    try:
-        page.goto("https://replicate.com/meta/llama-2-70b")
-        page.wait_for_timeout(3000)
-        page.screenshot(path="1_open_page.png")
-        page.fill("prompt", str(final_text))
-        page.keyboard.press("Enter")
-        page.wait_for_timeout(10000)
-    except Exception as erro:
-        page.screenshot(path="erro_tela.png")
-        print("Erro:", erro)
-        raise erro
-    finally:
-        browser.close()
+with open("simulation-results.csv", mode="w", newline="", encoding="utf-8-sig") as csv_file:
+    writer = csv.writer(csv_file, delimiter=";")
+    writer.writerow(["Input", "Output"])
+    for indice, present_sim in enumerate(combined_list, start=1):
+        print(f"[{indice}/{len(combined_list)}] Sending: {present_sim}")
+        try:
+            exit = replicate.run(
+                "meta/llama-2-70b",
+                input={
+                    "prompt": present_prompt,
+                    "max_new_tokens": 20,
+                    "temperature": 0
+                }
+            )
+            full_response = "".join(exit).strip()
+            writer.writerow([present_prompt, full_response])
+
+print("Success! Here's the file with the result of the simulations."
