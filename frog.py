@@ -29,18 +29,18 @@ if not match_text:
 imported_text = html.unescape(match_text.group(1))
 
 match_new_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', unlock_users_rentry.text)
-    if match_new_csrf_token:
-        session.post(
-            f"{url}/edit",
-            data={
-                "csrfmiddlewaretoken": match_new_csrf_token.group(1),
-                "edit_code": edit_code,
-                "text": "Text automatically removed.",
-                "new_edit_code": "",
-                "new_url": ""
+if match_new_csrf_token:
+    session.post(
+        f"{url}/edit",
+        data={
+            "csrfmiddlewaretoken": match_new_csrf_token.group(1),
+            "edit_code": edit_code,
+            "text": "Text automatically removed.",
+            "new_edit_code": "",
+            "new_url": ""
             }
         )
-    return texto_extraido
+return texto_extraido
 
 private_mode = os.environ.get("private", "false").lower() == "true"
 if private_mode:
