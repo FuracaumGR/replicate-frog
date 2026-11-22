@@ -13,7 +13,7 @@ def read_and_clean_rentry(url, edit_code):
     session.headers.update({"User-Agents": "Mozilla/5.0", "Referer": url})
 
     edit_page = session.get(f"{url}/edit")
-    match_csfr_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', edit_page.text)
+    match_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', edit_page.text)
     if not match_csrf_token:
         raise ValueError("Error: It wasn't possible to find the rentry.co edit page.")
     csrf_token = match_csrf_token.group(1)
