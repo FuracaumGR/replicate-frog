@@ -1,0 +1,40 @@
+name: Execute Private Frog
+on:
+  workflow_dispatch:
+    inputs:
+      link_gist1:
+        description: 'Add the link of your First Secret Gist Here, With the Elements A separated by Equal Signs'
+        required: true
+        type: string
+      link_gist2:
+        description: 'Add the link of your Second Secret Gist Here, With the Elements B separated by Equal Signs'
+        required: true
+        type: string
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Load Code
+        uses: actions/checkout@v4
+      - name: Config. Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Add Replicate
+        run: pip install replicate
+      - name: Run Script
+        env:
+          input_elm1: ${{ github.event.inputs.link_gist1 }}
+          input_elm2: ${{ github.event.inputs.link_gist2 }}
+          private: "false"
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+          
+        run: python frog.py
+      - name: Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-results
+          path: simulation-results.csv
+          retention-days: 1
