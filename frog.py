@@ -26,7 +26,7 @@ unlock_users_rentry = session.post(
 match_text = re.search(r'<textarea[^>]*name="text"[^>]*>(.*?)</textarea>', unlock_users_rentry.text, re.DOTALL)
 if not match_text:
         raise ValueError("Error: The edit code is incorrect or the page is empty.")
-    imported_text = html.unescape(match_text.group(1))
+imported_text = html.unescape(match_text.group(1))
 
 match_new_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', unlock_users_rentry.text)
     if match_new_csrf_token:
