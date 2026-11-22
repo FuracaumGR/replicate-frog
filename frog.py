@@ -1,20 +1,55 @@
 import os
+import re
 import csv
+import html
 import time
+import requests
 import itertools
-import urllib.request
 import replicate
 
-def download_gists(gist_url):
-    gist_url = gist_url.strip()
-    if "://github.com" in gist_url and "/raw" not in gist_url:
-        gist_url = gist_url.replace("://github.com", "://githubusercontent.com") + "/raw"
-        return urllib.rquest.urlopen(gist_url).read().decode("utf_8")
+def read_and_cleam_rentry(url, edit_code):
+    url = url.strip().rstrip("/")
+    session = requests.Session()
+    session.headers.update({"User-Agents": "Mozilla/5.0", "Referer": url})
+
+    edit_page = session.get(f"{url}/edit")
+    match_csfr_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', edit_page.text)
+    if not match_csrf_token:
+        raise ValueError("Error: It wasn't possible to find the rentry.co edit page.")
+    csrf_token = match_csrf_token.group(1)
+
+unlock_users_rentry = session.post(
+        f"{url}/edit",
+        data={"csrfmiddlewaretoken": csrf_token, "edit_code": edit_code}
+)
+
+match_text = re.search(r'<textarea[^>]*name="text"[^>]*>(.*?)</textarea>', unlock_users_rentry.text, re.DOTALL)
+    if not match_text:
+        raise ValueError("Error: The edit code is incorrect or the page is empty.")
+    imported_text = html.unescape(match_text.group(1))
+
+match_new_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', unlock_users_rentry.text)
+    if match_new_csrf_token:
+        session.post(
+            f"{url}/edit",
+            data={
+                "csrfmiddlewaretoken": match_new_csrf_token.group(1),
+                "edit_code": edit_code,
+                "text": "Text automatically removed.",
+                "new_edit_code": "",
+                "new_url": ""
+            }
+        )
+    return texto_extraido
 
 private_mode = os.environ.get("private", "false").lower() == "true"
 if private_mode:
-    first_elm_list = download_gists(os.environ.get("link_gist1", ""))
-    second_elm_list = download_gists(os.environ.get("link_gist2", ""))
+    rentry_password = os.environ.get("INPUT_EDIT_CODE", "")
+    rentry_text = read_and_clean_rentry(os.environ.get("INPUT_RENTRY", ""), rentry_password)
+    lines = [line for line in rentry_text.strip().splitlines() if line.strip()]
+    first_elm_list = lines[0] if len(lines) > 0 else ""
+    second_elm_list = lines[1] if len(lines) > 1 else ""
+    
 else:
     first_elm_list = os.environ.get("input_elm1", "")
     second_elm_list = os.environ.get("input_elm2", "")
