@@ -28,7 +28,7 @@ jobs:
         run: pip install replicate requests
       - name: Run Script
         env:
-          input_rentry: ${{ github.event.inputs.link_rentry }}
+          INPUT_RENTRY: ${{ github.event.inputs.link_rentry }}
           input_edit_code: ${{ github.event.inputs.edit_code }}
           private: "true"
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
