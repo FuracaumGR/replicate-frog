@@ -40,7 +40,7 @@ if match_new_csrf_token:
             "new_url": ""
             }
         )
-return texto_extraido
+    return imported_text
 
 private_mode = os.environ.get("private", "false").lower() == "true"
 if private_mode:
