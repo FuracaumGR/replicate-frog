@@ -47,8 +47,8 @@ if private_mode:
     rentry_password = os.environ.get("INPUT_EDIT_CODE", "")
     rentry_text = read_and_clean_rentry(os.environ.get("INPUT_RENTRY", ""), rentry_password)
     lines = [line for line in rentry_text.strip().splitlines() if line.strip()]
-    first_elm_list = lines[0] if len(lines) > 0 else ""
-    second_elm_list = lines[1] if len(lines) > 1 else ""
+    first_elm_list = lines.pop(0)if len(lines) > 0 else ""
+    second_elm_list = lines.pop(0) if len(lines) > 1 else ""
     
 else:
     first_elm_list = os.environ.get("input_elm1", "")
