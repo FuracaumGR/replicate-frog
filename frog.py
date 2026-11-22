@@ -11,7 +11,7 @@ def download_gists(gist_url):
         gist_url = gist_url.replace("://github.com", "://githubusercontent.com") + "/raw"
         return urllib.rquest.urlopen(gist_url).read().decode("utf_8")
 
-private_mode = os.environ.get("private???", "false").lower() == "true"
+private_mode = os.environ.get("private", "false").lower() == "true"
 if private_mode:
     first_elm_list = download_gists(os.environ.get("link_gist1", ""))
     second_elm_list = download_gists(os.environ.get("link_gist2", ""))
