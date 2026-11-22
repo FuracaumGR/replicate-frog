@@ -38,9 +38,9 @@ if match_new_csrf_token:
             "text": "Text automatically removed.",
             "new_edit_code": "",
             "new_url": ""
-            }
-        )
-    return imported_text
+        }
+    )
+return imported_text
 
 private_mode = os.environ.get("private", "false").lower() == "true"
 if private_mode:
