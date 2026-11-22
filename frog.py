@@ -18,17 +18,17 @@ def read_and_cleam_rentry(url, edit_code):
         raise ValueError("Error: It wasn't possible to find the rentry.co edit page.")
     csrf_token = match_csrf_token.group(1)
 
-unlock_users_rentry = session.post(
+    unlock_users_rentry = session.post(
         f"{url}/edit",
         data={"csrfmiddlewaretoken": csrf_token, "edit_code": edit_code}
-)
+    )
 
-match_text = re.search(r'<textarea[^>]*name="text"[^>]*>(.*?)</textarea>', unlock_users_rentry.text, re.DOTALL)
-if not match_text:
+    match_text = re.search(r'<textarea[^>]*name="text"[^>]*>(.*?)</textarea>', unlock_users_rentry.text, re.DOTALL)
+    if not match_text:
         raise ValueError("Error: The edit code is incorrect or the page is empty.")
-imported_text = html.unescape(match_text.group(1))
+    imported_text = html.unescape(match_text.group(1))
 
-match_new_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', unlock_users_rentry.text)
+    match_new_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', unlock_users_rentry.text)
     if match_new_csrf_token:
         session.post(
             f"{url}/edit",
