@@ -1,4 +1,4 @@
-name: Execute Frog
+name: Execute Public Frog
 on:
   workflow_dispatch:
     inputs:
@@ -27,6 +27,7 @@ jobs:
         env:
           input_elm1: ${{ github.event.inputs.first_elements }}
           input_elm2: ${{ github.event.inputs.second_elements }}
+          private: "false"
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
           
         run: python frog.py
