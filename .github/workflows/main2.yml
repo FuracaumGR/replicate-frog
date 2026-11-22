@@ -2,14 +2,15 @@ name: Execute Private Frog
 on:
   workflow_dispatch:
     inputs:
-      link_gist1:
-        description: 'Add the link of your First Secret Gist Here, With the Elements A separated by Equal Signs'
+      link_rentry:
+        description: 'Add the link of your rentry.co text, Separating the elements with Equal Signs, Separating Elements A and B with a Newline'
         required: true
         type: string
-      link_gist2:
-        description: 'Add the link of your Second Secret Gist Here, With the Elements B separated by Equal Signs'
+      edit_code:
+        description: 'Add the Edit code of your rentry.co text'
         required: true
         type: string
+        
 jobs:
   run_script:
     runs-on: ubuntu-latest
@@ -21,13 +22,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Add Replicate
-        run: pip install replicate
+      - name: Add Libraries
+        run: pip install replicate requests
       - name: Run Script
         env:
-          input_elm1: ${{ github.event.inputs.link_gist1 }}
-          input_elm2: ${{ github.event.inputs.link_gist2 }}
-          private: "false"
+          input_rentry: ${{ github.event.inputs.link_rentry }}
+          input_edit_code: ${{ github.event.inputs.edit_code }}
+          private: "true"
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
           
         run: python frog.py
