@@ -24,7 +24,7 @@ unlock_users_rentry = session.post(
 )
 
 match_text = re.search(r'<textarea[^>]*name="text"[^>]*>(.*?)</textarea>', unlock_users_rentry.text, re.DOTALL)
-    if not match_text:
+if not match_text:
         raise ValueError("Error: The edit code is incorrect or the page is empty.")
     imported_text = html.unescape(match_text.group(1))
 
