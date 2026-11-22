@@ -43,7 +43,8 @@ jobs:
           retention-days: 1
 
       - name: Delete .csv File in 2 Minutes
-        if: always()
+        if: always() && steps.upload.outputs.artifact-id != ''
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
