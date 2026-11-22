@@ -7,7 +7,7 @@ import requests
 import itertools
 import replicate
 
-def read_and_cleam_rentry(url, edit_code):
+def read_and_clean_rentry(url, edit_code):
     url = url.strip().rstrip("/")
     session = requests.Session()
     session.headers.update({"User-Agents": "Mozilla/5.0", "Referer": url})
