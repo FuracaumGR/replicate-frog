@@ -7,57 +7,19 @@ import requests
 import itertools
 import replicate
 
-def read_and_clean_rentry(url, edit_code):
-    url = url.strip().rstrip("/")
-    if not url.startswith("http"):
-        url = "https://" + url
-    session = requests.Session()
-    session.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                            "Referer": f"{url}/edit"
-    })
-
-    edit_page = session.get(f"{url}/edit")
-    match_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', edit_page.text)
-    if not match_csrf_token:
-        raise ValueError("Error: It wasn't possible to find the rentry.co edit page.")
-    csrf_token = match_csrf_token.group(1)
-
-    unlock_users_rentry = session.post(
-        f"{url}/edit",
-        data={
-            "csrfmiddlewaretoken": csrf_token,
-            "edit_code": edit_code.strip
-        },
-        allow_redirects=True
-    )
-
-    match_text = re.search(r'<textarea[^>]*name="text"[^>]*>(.*?)</textarea>', unlock_users_rentry.text, re.DOTALL)
-    if not match_text:
-        raise ValueError("Error: The edit code is incorrect or the page is empty.")
-    imported_text = html.unescape(match_text.group(1))
-
-    match_new_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', unlock_users_rentry.text)
-    if match_new_csrf_token:
-        session.post(
-            f"{url}/edit",
-            data={
-                "csrfmiddlewaretoken": match_new_csrf_token.group(1),
-                "edit_code": edit_code.strip(),
-                "text": "Text automatically removed.",
-                "new_edit_code": "",
-                "new_url": ""
-            },
-            allow_redirects=True
-        )
-    return imported_text
-
 private_mode = os.environ.get("private", "false").lower() == "true"
 if private_mode:
-    rentry_password = os.environ.get("INPUT_EDIT_CODE", "")
-    rentry_text = read_and_clean_rentry(os.environ.get("INPUT_RENTRY", ""), rentry_password)
-    lines = [line for line in rentry_text.strip().splitlines() if line.strip()]
-    first_elm_list = lines.pop(0)if len(lines) > 0 else ""
-    second_elm_list = lines.pop(0) if len(lines) > 1 else ""
+    link_dpaste = os.environ.get("input_dpaste", "").strip().rstrip("/")
+    if not link_dpaste.endswith("/raw"):
+        link_dpaste =+ "/raw"
+
+    response = requests.get(link_dpaste)
+    response.raise_for_status()
+    unchanged_text = response.text
+
+    lines = [line for line in unchanged_text.strip().splitlines() if line.strip()]
+    first_elm_list = lines.pop(0) if lines else ""
+    second_elm_list = lines.pop(0) if lines else ""
     
 else:
     first_elm_list = os.environ.get("input_elm1", "")
