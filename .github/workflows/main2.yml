@@ -2,12 +2,8 @@ name: Execute Private Frog
 on:
   workflow_dispatch:
     inputs:
-      link_rentry:
-        description: 'Add the link of your rentry.co text, Separating the elements with Equal Signs, Separating Elements A and B with a Newline'
-        required: true
-        type: string
-      edit_code:
-        description: 'Add the Edit code of your rentry.co text'
+      link_dpaste:
+        description: 'Add the link of your dpaste.org page, Separating the elements with Equal Signs, Separating Elements A and B with a Newline'
         required: true
         type: string
         
@@ -28,13 +24,14 @@ jobs:
         run: pip install replicate requests
       - name: Run Script
         env:
-          INPUT_RENTRY: ${{ github.event.inputs.link_rentry }}
-          input_edit_code: ${{ github.event.inputs.edit_code }}
+          input_dpaste: ${{ github.event.inputs.link_dpaste }}
           private: "true"
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
           
         run: python frog.py
+        
       - name: Results
+        id: upload
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -42,8 +39,8 @@ jobs:
           path: simulation-results.csv
           retention-days: 1
 
-      - name: Delete .csv File in 2 Minutes
-        if: always() && steps.upload.outputs.artifact-id != ''
+      - name: Delete .csv File After 2 Minutes
+        if: always()
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
