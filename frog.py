@@ -11,7 +11,7 @@ private_mode = os.environ.get("private", "false").lower() == "true"
 if private_mode:
     link_dpaste = os.environ.get("input_dpaste", "").strip().rstrip("/")
     if not link_dpaste.endswith("/raw"):
-        link_dpaste =+ "/raw"
+        link_dpaste = link_dpaste + "/raw"
 
     response = requests.get(link_dpaste)
     response.raise_for_status()
