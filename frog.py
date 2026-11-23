@@ -50,7 +50,8 @@ with open("simulation-results.csv", mode="w", newline="", encoding="utf-8-sig") 
                 input={
                     "prompt": present_replicate_sim,
                     "max_new_tokens": 20,
-                    "temperature": 0
+                    "temperature": 0,
+                    "stop_sequences": "\n"
                 }
             )
             full_response = "".join(exit).strip()
