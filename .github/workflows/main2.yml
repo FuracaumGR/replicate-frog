@@ -46,7 +46,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
         run: |
-          echo "The file "simulation-results.csv" is ready for download for 2 minutes."
-          sleep 120
+          echo "The file "simulation-results.csv" is ready to download for 30 seconds."
+          sleep 30
           gh api -X DELETE /repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID
           echo "The file "simulation-results.csv" was successfully deleted."
