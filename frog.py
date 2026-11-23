@@ -9,8 +9,12 @@ import replicate
 
 def read_and_clean_rentry(url, edit_code):
     url = url.strip().rstrip("/")
+    if not url.startswith("http"):
+        url = "https://" + url
     session = requests.Session()
-    session.headers.update({"User-Agents": "Mozilla/5.0", "Referer": url})
+    session.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                            "Referer": f"{url}/edit"
+    })
 
     edit_page = session.get(f"{url}/edit")
     match_csrf_token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', edit_page.text)
@@ -20,7 +24,11 @@ def read_and_clean_rentry(url, edit_code):
 
     unlock_users_rentry = session.post(
         f"{url}/edit",
-        data={"csrfmiddlewaretoken": csrf_token, "edit_code": edit_code}
+        data={
+            "csrfmiddlewaretoken": csrf_token,
+            "edit_code": edit_code.strip
+        },
+        allow_redirects=True
     )
 
     match_text = re.search(r'<textarea[^>]*name="text"[^>]*>(.*?)</textarea>', unlock_users_rentry.text, re.DOTALL)
@@ -34,11 +42,12 @@ def read_and_clean_rentry(url, edit_code):
             f"{url}/edit",
             data={
                 "csrfmiddlewaretoken": match_new_csrf_token.group(1),
-                "edit_code": edit_code,
+                "edit_code": edit_code.strip(),
                 "text": "Text automatically removed.",
                 "new_edit_code": "",
                 "new_url": ""
-            }
+            },
+            allow_redirects=True
         )
     return imported_text
 
