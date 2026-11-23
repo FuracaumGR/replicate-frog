@@ -17,7 +17,7 @@ To be able to use the script, first, you need to become a <em>Contributor</em>, 
 • Done! You're now a Contributor, you can now use the script.<br>
 
 ### Running the Script
-Now that you're a Contributor, you should be able to run the script, being able to choose if you want to use the <em>Private Frog</em> or the <em>Public Frog</em>> Here's a guide on how to use both versions.<br>
+Now that you're a Contributor, you should be able to run the script, being able to choose if you want to use the <em>Private Frog</em> or the <em>Public Frog</em> Here's a guide on how to use both versions.<br>
 
 ### Using Public Frog
 The <em>Public Frog</em> allows for a faster and simpler usage of the script, but allows others to see what elements you combined and to download the <em>simulation-results.csv</em> file at the end. But if you don't mind privacy, you can follow these steps:<br>
