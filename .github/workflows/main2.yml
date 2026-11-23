@@ -39,14 +39,14 @@ jobs:
           path: simulation-results.csv
           retention-days: 1
 
-      - name: Delete .csv File After 2 Minutes
+      - name: Delete .csv File After 60 Seconds
         if: always()
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
         run: |
-          echo "The file "simulation-results.csv" is ready to download for 30 seconds."
-          sleep 30
+          echo "The file "simulation-results.csv" is ready to download for 60 seconds."
+          sleep 60
           gh api -X DELETE /repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID
           echo "The file "simulation-results.csv" was successfully deleted."
