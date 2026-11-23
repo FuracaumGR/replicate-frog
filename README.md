@@ -1,7 +1,7 @@
 # Replicate Frog
 Replicate Frog is a script that automate Replicate simulations. Allowing for multiple simulations at once with different combinations.<br>
 <br>
-![Frog](readmefrog.jpg)
+![Frog](readmeimages/readmefrog.jpg)
 
 ## How Does It Work?
 You write the elements you want to combine, each one in its respective side. Then, we send every possible combination between them (ignoring elements within the same box) to Replicate. and in a few minutes you receive a file with the results of the simulations.
